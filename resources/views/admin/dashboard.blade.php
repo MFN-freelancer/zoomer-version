@@ -88,7 +88,8 @@
                                                 </td>
                                                 <td>
                                                     @if($video_list->video_approve=="pending")
-                                                    <a href="/admin/approve/{{$video_list->id}}"><span class="label label-info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">pending</font></font></span></a>
+                                                    <a href="/admin/approve/{{$video_list->id}}" class="approve-confirm" data-placement="top" title="" data-original-title="Close"
+                                                    ><span class="label label-info "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">pending</font></font></span></a>
                                                     @else
                                                     <span class="label label-success"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Approved</font></font></span>
                                                     @endif
@@ -117,4 +118,20 @@
         </div>
         <!-- #/ container -->
     </div>
+    <script>
+        $('.approve-confirm').on('click', function (event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            swal({
+                title: 'Are you sure?',
+                text: 'Will you approve this video?',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                    window.location.href = url;
+                }
+            });
+        });
+    </script>
 @endsection

@@ -76,7 +76,7 @@ class VideoListController extends Controller
             );
 //        dd($form_data);
         VideoList::create($form_data);
-        return back();
+        return view('admin.upload_confirm');
     }
     public function editShow(){
         $user = Auth::user();

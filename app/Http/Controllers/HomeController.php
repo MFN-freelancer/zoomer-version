@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Session;
 use App\VideoList;
+use App\Subcribe;
 use Illuminate\Support\Facades\Hash;
 class HomeController extends Controller
 {
@@ -46,5 +47,9 @@ class HomeController extends Controller
         User::whereId($id)->update($data);
         Session::flash('message','Successful Updated!');
         return back();
+    }
+    public function newsletter(){
+        $subscribers = Subcribe::all();
+        return view("admin.newsletter", compact('subscribers'));
     }
 }

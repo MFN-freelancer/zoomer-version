@@ -40,7 +40,7 @@
                                             <div class="input-group">
                                                 {{--<input type="file" class="form-control" name="video_file" required>--}}
                                                 <input class="video-preview" type="file" name="video_file" required>
-                                                <video controls style="width: 100%;height: auto;" autoplay></video>
+                                                <video controls style="width: 100%;height: auto;" ></video>
 
                                             </div>
                                         </div>

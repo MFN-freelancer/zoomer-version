@@ -27,6 +27,8 @@ Route::post('like', 'FrontController@like');
 Route::post('dislike', 'FrontController@dislike');
 //comment
 Route::post('comment', 'FrontController@comment')->name('comment');
+//newsletter
+Route::post('newsletter', 'FrontController@news')->name('newsletter');
 
 Route::get('contact-us', function (){
     return view('contact-us');
@@ -45,7 +47,7 @@ Route::group(['prefix'=>'admin'], function(){
 
     Route::get('manage-users', 'HomeController@manageUser')->name('user-manage');
     Route::get('manage-users/{id}', 'HomeController@deleteUser');
-
+    Route::get('newsletter', 'HomeController@newsletter')->name('subscribe');
     Route::get('change-password', function (){
         return view('admin.change');
     })->name('change-password');

@@ -8,11 +8,12 @@ use Session;
 use Illuminate\Support\Facades\Auth;
 use App\VideoList;
 use App\VideoInfo;
+use App\Subcribe;
 class FrontController extends Controller
 {
     //
     public function index(){
-        $videos = VideoList::where('video_approve','approved')->orderBy('created_at', 'DESC')->paginate('6');
+        $videos = VideoList::where('video_approve','approved')->orderBy('created_at', 'DESC')->paginate('15');
         $cats = VideoList::where('video_approve','approved')->groupBy('video_category')->select('video_category')->get();
         $total_video = VideoList::where('video_approve','approved')->select('id')->count();
         $total_download = VideoList::where('video_approve','approved')->select('downloaded_number')->sum("downloaded_number");
@@ -62,6 +63,15 @@ class FrontController extends Controller
         $videoId = $request->input('video_id');
         $comment = $request->input('comment');
         VideoInfo::insert(['comments'=>$comment, 'video_id'=>$videoId]);
+        return back();
+    }
+
+//    newsletter
+    public function news(Request $request){
+        $sub = new Subcribe();
+        $sub->user_name = $request->input('user_name');
+        $sub->subscribe_email = $request->input('email_newsletter');
+        $sub->save();
         return back();
     }
 }

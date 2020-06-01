@@ -132,6 +132,10 @@
                         <i class="mdi mdi-application"></i><span class="nav-text">Manage Users</span>
                     </a>
                 </li>
+                <li><a class="has-arrow" href="{{route('subscribe')}}" aria-expanded="false">
+                        <i class="mdi mdi-application"></i><span class="nav-text">Newsletter</span>
+                    </a>
+                </li>
                 @endif
 
                 @if($user->is_user())

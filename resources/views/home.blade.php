@@ -26,7 +26,7 @@
     <!-- End SubHeader ============================================ -->
     <div class="container_styled_1">
         <div class="container margin_60_35">
-            <h2 class="main_title"><em></em>Latest Backgrounds</h2>
+            <h2 class="main_title"><em></em>Featured Backgrounds</h2>
             <div id="filter_buttons">
                 <button data-toggle="portfilter" class="active" data-target="all">All</button>
                 @foreach($cats as $cat)
@@ -46,7 +46,7 @@
                                 @else
                                     <a href="#" data-toggle="modal" data-target="#login" class="hidden-xs">
                             @endauth
-                                <img src="{{asset("cover_images/".$video->video_cover)}}" width="800" height="533"
+                                <img src="{{asset("cover_images/".$video->video_cover)}}" width="800" height="250"
                                      class="img-responsive" alt="Image">
                                 <div class="short_info"><i class="icon-clock-1"></i></div>
                             @auth
@@ -58,17 +58,14 @@
                         <div class="course_title">
                             <div class="type"><span>{{$video->video_category}}</span>
                             </div>
-                            @auth
                             <h3>
                                 {{--<a href="{{URL::to('/uploaded_video/'.$video->video_url)}}" download>{{$video->video_title}} </a>--}}
-                                <a href="video-view/{{$video->id}}" >{{$video->video_title}} </a>
+                                <a href=@auth"video-view/{{$video->id}}"@endauth >{{$video->video_title}} </a>
                             </h3>
-                            @endauth
                             <div class="info_2 clearfix">
                                 <span class="review-stars" style="color: #ffc107;">
-                                    @for($i=0;$i<5;++$i)
-                                        <i class="fa fa-star{{ $video->ratings<=$i?'-o':'' }}" aria-hidden="true"></i>
-                                    @endfor
+                                    <i class=" icon-thumbs-up">{{$video->likes}}</i>
+                                    <i class=" icon-thumbs-down">{{$video->dislikes}}</i>
                                 </span>
                             </div>
                         </div>
@@ -82,22 +79,24 @@
         <!-- End container -->
     </div>
     <!-- End container_styled_1 -->
+    @auth
     <div id="newsletter_container">
         <div class="container margin_60">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 text-center">
                     <h3>Subscribe to our Newsletter for latest news.</h3>
                     <div id="message-newsletter"></div>
-                    <form method="post" action="{{asset("front_assets/assets/newsletter.php")}}" name="newsletter"
-                          id="newsletter"
-                          class="form-inline">
+                    <form method="post" action="{{route('newsletter')}}" name="newsletter" class="form-inline">
+                        @csrf
+                        <input type="hidden" name="user_name" value="{{Auth::user()->name}}">
                         <input name="email_newsletter" id="email_newsletter" type="email" value=""
                                placeholder="Your Email" class="form-control">
-                        <button id="submit-newsletter" class="btn_1"> Subscribe</button>
+                        <button type="submit" id="submit-newsletter" class="btn_1"> Subscribe</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    @endauth
     <!-- End newsletter_container -->
 @endsection
